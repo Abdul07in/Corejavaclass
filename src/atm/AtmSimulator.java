@@ -15,7 +15,6 @@ public class AtmSimulator {
         } else {
             System.out.println("ERROR: wrong pin");
         }
-
     }
 
     void welcome() {
@@ -38,27 +37,31 @@ public class AtmSimulator {
         return ch;
     }
 
-
     void verifiedMenu() {
         int ch = menu();
-        for (int i = 2; i >= 1; i--) {
-            switch (ch) {
-                case 1:
-                    depositingMoney();
-                    break;
-                case 2:
-                    withdrawMoney();
-                    break;
-                case 3:
-                    checkBalance();
-                    break;
-                default:
-                    System.out.println("\nINVALID OUTPUT [" + i + " attempts left]");
-                    menu();
-                    break;
+        for (int i = 3; i >= 1; i--) {
+            if (i == 1) {
+                System.out.println("You Exceeded No. Attempts");
+                System.exit(0);
+            } else {
+                switch (ch) {
+                    case 1:
+                        depositingMoney();
+                        break;
+                    case 2:
+                        withdrawMoney();
+                        break;
+                    case 3:
+                        checkBalance();
+                        break;
+                    default:
+                        System.out.println("\nINVALID INPUT [" + (i - 1) + " attempts left]");
+                        menu();
+                        break;
+                }
             }
-            System.out.println("You Exceeded No. Attempts");
         }
+
     }
 
     void depositingMoney() {
@@ -70,48 +73,34 @@ public class AtmSimulator {
         } else {
             System.out.println("\nERROR: Negative Amount Entered.");
         }
-        System.out.println("\nDo you want to continue ? [1=yes || 2= no]");
-        int a = sc.nextInt();
-        if (a == 1) {
-            verifiedMenu();
-        } else {
-            System.out.println("\nThank You");
-            System.exit(1);
-        }
+        continueMenu();
     }
 
     void withdrawMoney() {
         System.out.print("\nEnter amount to withdraw: ");
         with = sc.nextInt();
-        if (with < bal && with > 0) {
+        if (with <= bal && with > 0) {
             bal = bal - with;
             System.out.println("\nTRANSACTION COMPLETED.");
         } else {
-            System.out.println("ERROR: Your Withdraw amount is more than your balance");
+            System.out.println("\nERROR: Your Withdraw amount is more than your balance");
         }
-
-        System.out.println("\nDo you want to continue ? [1=yes || 2= no]");
-        int a = sc.nextInt();
-        if (a == 1) {
-            verifiedMenu();
-        } else {
-            System.out.println("\nThank You");
-            System.exit(1);
-        }
+        continueMenu();
     }
 
     void checkBalance() {
-
         System.out.println("\nYour Current Balance is " + bal);
         System.out.println("\nTRANSACTION COMPLETED.");
-        System.out.println("\nDo you want to continue ? [1=yes || 2= no]");
-        int a = sc.nextInt();
-        if (a == 1) {
-            verifiedMenu();
-        } else {
-            System.out.println("\nThank You");
-            System.exit(1);
-        }
+        continueMenu();
     }
 
+    void continueMenu() {
+        System.out.println("\nDo you want to continue ? [1 = yes || 2 = no]");
+        int a = sc.nextInt();
+        if (a == 1) verifiedMenu();
+        else {
+            System.out.println("\nThank You");
+            System.exit(0);
+        }
+    }
 }
