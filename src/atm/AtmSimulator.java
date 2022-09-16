@@ -1,100 +1,93 @@
 package atm;
 
+import java.text.NumberFormat;
 import java.util.Scanner;
 
 public class AtmSimulator {
     Scanner sc = new Scanner(System.in);
-    private int pin, bal = 1000, dep, with;
+    private int bal = 1_000;
 
     public static void main(String[] args) {
         AtmSimulator obj = new AtmSimulator();
-        obj.welcome();
         int check = obj.pinVerify();
         if (check == 123) {
             obj.verifiedMenu();
         } else {
-            System.out.println("ERROR: wrong pin");
+            System.err.println("ERROR: wrong pin");
         }
     }
 
-    void welcome() {
+    static {
         System.out.println("-----SQUAD--------------------");
         System.out.println("------------ATM---------------");
         System.out.println("------------------SIMULATOR---");
     }
 
-    int pinVerify() {
+    private int pinVerify() {
         System.out.print("\nEnter Your Pin:");
-        pin = sc.nextInt();
-        return pin;
+        return sc.nextInt();
     }
 
-    int menu() {
+    private int menu() {
         System.out.println("\n-----WELCOME TO SQUAD ATM-----");
-        System.out.println("\n1.Deposit\n2.Withdraw\n3.Check Balance");
+        System.out.println("\n1.Deposit\t2.Withdraw\n3.Check Balance\t4.Exit");
         System.out.print("\nEnter your option: ");
-        int ch = sc.nextInt();
-        return ch;
+        return sc.nextInt();
     }
 
-    void verifiedMenu() {
+    private void verifiedMenu() {
         int ch = menu();
         for (int i = 3; i >= 1; i--) {
             if (i == 1) {
-                System.out.println("You Exceeded No. Attempts");
+                System.err.println("You Exceeded No. Attempts");
                 System.exit(0);
             } else {
                 switch (ch) {
-                    case 1:
-                        depositingMoney();
-                        break;
-                    case 2:
-                        withdrawMoney();
-                        break;
-                    case 3:
-                        checkBalance();
-                        break;
-                    default:
-                        System.out.println("\nINVALID INPUT [" + (i - 1) + " attempts left]");
+                    case 1 -> depositingMoney();
+                    case 2 -> withdrawMoney();
+                    case 3 -> checkBalance();
+                    case 4 -> System.exit(0);
+                    default -> {
+                        System.err.println("\nINVALID INPUT [" + (i - 1) + " attempts left]");
                         menu();
-                        break;
+                    }
                 }
             }
         }
 
     }
 
-    void depositingMoney() {
+    private void depositingMoney() {
         System.out.print("\nEnter amount to deposit: ");
-        dep = sc.nextInt();
+        int dep = sc.nextInt();
         if (dep > 0) {
             bal = bal + dep;
             System.out.println("\nTRANSACTION COMPLETED.");
         } else {
-            System.out.println("\nERROR: Negative Amount Entered.");
+            System.err.println("\nERROR: Negative Amount Entered.");
         }
         continueMenu();
     }
 
-    void withdrawMoney() {
+    private void withdrawMoney() {
         System.out.print("\nEnter amount to withdraw: ");
-        with = sc.nextInt();
+        int with = sc.nextInt();
         if (with <= bal && with > 0) {
             bal = bal - with;
             System.out.println("\nTRANSACTION COMPLETED.");
         } else {
-            System.out.println("\nERROR: Your Withdraw amount is more than your balance");
+            System.err.println("\nERROR: Your Withdraw amount is more than your balance");
         }
         continueMenu();
     }
 
-    void checkBalance() {
-        System.out.println("\nYour Current Balance is " + bal);
+    private void checkBalance() {
+        System.out.println("\nYour Current Balance is " + NumberFormat.getCurrencyInstance().format(bal));
         System.out.println("\nTRANSACTION COMPLETED.");
         continueMenu();
     }
 
-    void continueMenu() {
+     private void continueMenu() {
         System.out.println("\nDo you want to continue ? [1 = yes || 2 = no]");
         int a = sc.nextInt();
         if (a == 1) verifiedMenu();
