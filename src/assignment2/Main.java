@@ -152,8 +152,7 @@ public class Main {
                 int amt = sc.nextInt();
                 if (amt > 0 && amt < users[i].getBalance()) {
                     users[i].setBalance(-amt);
-                } else
-                    System.out.println("Error: not enough balance.");
+                } else System.out.println("Error: not enough balance.");
             }
         }
         continueMenu();
@@ -177,10 +176,9 @@ public class Main {
                     case 6 -> depositMoney();
                     case 7 -> withdrawMoney();
                     case 8 -> System.exit(0);
-
                     default -> {
                         System.out.println("\nINVALID INPUT [" + (i - 1) + " attempts left]");
-                        menu();
+                        startProgram();
                     }
                 }
             }
