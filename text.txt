@@ -1,0 +1,11 @@
+export JAVA_HOME=/workspace/Corejavaclass/jdk-19.0.1
+export PATH=$PATH:$JAVA_HOME/bin
+
+mount -o remount,rw /proc/sys/vm/
+
+
+find /home -name .bashrc
+
+
+echo "export JAVA_HOME=/opt/jdk/jdk1.8.0_291" >> ~/.bashrc
+echo "export PATH=$PATH:$JAVA_HOME/bin" >> ~/.bashrc

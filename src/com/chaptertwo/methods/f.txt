@@ -1,0 +1,19 @@
+First, you will need to create a server that clients can connect to.
+Next, create a client application that allows users to connect to the server.
+The client should have a way for the user to input their username and a message to send to the server.
+When the client sends a message to the server, the server should broadcast the message to all connected clients.
+Each client should display the message in a chat window.
+You may also want to add additional features such as the ability to send private messages to specific users or to create chat rooms.
+Some things to consider when implementing the chat app:
+How will the server store information about connected clients?
+How will the server keep track of which clients are in which chat room?
+How will the client display received messages in the chat window?
+How will the client handle multiple connections to the server?
+I hope this gives you a good starting point for creating your chat app. Let me know if you have any questions.
+    Coral: #FF7F50
+    Light Sky Blue: #87CEFA
+    Sage: #9DC183
+    Blush: #FFD1DC
+    Taupe: #8B8589
+
+    
