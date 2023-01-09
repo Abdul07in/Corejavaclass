@@ -9,3 +9,36 @@ find /home -name .bashrc
 
 echo "export JAVA_HOME=/opt/jdk/jdk1.8.0_291" >> ~/.bashrc
 echo "export PATH=$PATH:$JAVA_HOME/bin" >> ~/.bashrc
+
+
+To enable swapping on a Linux system, you can create a swap file or use a swap partition.
+
+To create a swap file:
+
+    Determine the size of the swap file. A common rule of thumb is to create a swap file that is twice the size of your system's RAM. For example, if your system has 8 GB of RAM, you can create a 16 GB swap file.
+
+    Use the "fallocate" command to create a new file of the desired size:
+
+sudo fallocate -l 16G /swapfile
+
+This will create a new file called "/swapfile" that is 16 GB in size.
+
+    Set the correct permissions on the swap file:
+
+sudo chmod 600 /swapfile
+
+    Use the "mkswap" command to set up the swap file:
+
+sudo mkswap /swapfile
+
+    Enable the swap file by running the following command:
+
+sudo swapon /swapfile
+
+To make the swap file permanent, you will need to add an entry for it in the "/etc/fstab" file. To do this, open the "/etc/fstab" file in a text editor and add the following line at the end:
+
+/swapfile none swap sw 0 0
+
+Save the file and exit. The swap file will be activated automatically at boot time.
+
+To use a swap partition instead of a swap file, you can follow a similar process, but create a new partition on the hard drive instead of a file. You will need to use a partitioning tool, such as "fdisk" or "parted," to create the partition and set it up as a swap partition.
